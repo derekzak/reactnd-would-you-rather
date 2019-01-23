@@ -14,9 +14,10 @@ class Login extends Component {
   }
 
   handleChange = event => {
+    const { dispatch } = this.props
+
     this.setState({ value: event.target.value })
-    setAuthedUser(event.target.value)
-    console.log('Authed User set to: ', event.target.value)
+    dispatch(setAuthedUser(event.target.value.trim()))
   }
 
   handleSubmit = event => {
@@ -34,15 +35,12 @@ class Login extends Component {
           <select value={value} onChange={this.handleChange}>
             <option value='' />
             {Object.keys(users).map(user => (
-              <option value={user}>{user}</option>
+              <option key={user} value={user}>
+                {user}
+              </option>
             ))}
           </select>
-          <button
-            block
-            bsSize='large'
-            disabled={!this.validateForm()}
-            type='submit'
-          >
+          <button disabled={!this.validateForm()} type='submit'>
             Login
           </button>
         </form>
