@@ -25,7 +25,6 @@ class Question extends Component {
       selectedOption: 'optionOne'
     }))
   }
-
   render() {
     const { question, users } = this.props
     const { selectedOption } = this.state
@@ -71,7 +70,7 @@ class Question extends Component {
     )
   }
 }
-function mapStateToProps({ users, authedUser }) {
+function mapStateToProps({ users }) {
   return {
     users
   }
