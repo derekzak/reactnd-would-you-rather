@@ -12,18 +12,21 @@ export default function questions(state = {}, action) {
         ...action.questions
       }
     case ADD_QUESTION:
-      const { question } = action
-
       return {
         ...state,
-        [question.id]: question
+        [action.question.id]: action.question
       }
     case ANSWER_QUESTION:
       return {
         ...state,
-        [action.id]: {
-          ...state[action.id]
-          // todo: concat to correct votes array for question here
+        [action.question.id]: {
+          ...state[action.question.id],
+          [action.question.answer]: {
+            ...state[action.question.id][action.question.answer],
+            votes: state[action.question.id][
+              action.question.answer
+            ].votes.concat([action.question.authedUser])
+          }
         }
       }
     default:

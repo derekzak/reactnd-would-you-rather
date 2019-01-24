@@ -3,6 +3,26 @@ import { connect } from 'react-redux'
 import QuestionPreview from './QuestionPreview'
 
 class Home extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = { showAnswered: false }
+  }
+
+  toggleShowAnswered = event => {
+    if (this.state.showAnswered) {
+      document.getElementById('questionToggleBtn').innerHTML =
+        'Show Answered Questions'
+    } else {
+      document.getElementById('questionToggleBtn').innerHTML =
+        'Show Unanswered Questions'
+    }
+
+    this.setState(prevState => {
+      return { showAnswered: !prevState.showAnswered }
+    })
+  }
+
   render() {
     const {
       users,
@@ -10,24 +30,34 @@ class Home extends Component {
       unansweredQuestions,
       authedUser
     } = this.props
+    const { showAnswered } = this.state
 
     return (
       <div className='home'>
         <h3 className='center'>Home</h3>
-        <ul className='unanswered-questions'>
-          {unansweredQuestions.map(question => (
-            <li key={question.id}>
-              <QuestionPreview question={question} />
-            </li>
-          ))}
-        </ul>
-        <ul className='answered-questions'>
-          {answeredQuestions.map(question => (
-            <li key={question.id}>
-              <QuestionPreview question={question} />
-            </li>
-          ))}
-        </ul>
+        <div className='questions-toggle-button'>
+          <button id='questionToggleBtn' onClick={this.toggleShowAnswered}>
+            Show Answered Questions
+          </button>
+        </div>
+        {!showAnswered && (
+          <ul className='unanswered-questions'>
+            {unansweredQuestions.map(question => (
+              <li key={question.id}>
+                <QuestionPreview question={question} />
+              </li>
+            ))}
+          </ul>
+        )}
+        {showAnswered && (
+          <ul className='answered-questions'>
+            {answeredQuestions.map(question => (
+              <li key={question.id}>
+                <QuestionPreview question={question} />
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     )
   }

@@ -1,6 +1,6 @@
 import { saveQuestion, saveQuestionAnswer } from '../utils/api'
 import { showLoading, hideLoading } from 'react-redux-loading'
-import { addUserQuestion } from './users'
+import { addUserQuestion, addUserAnswer } from './users'
 
 export const RECEIVE_QUESTIONS = 'RECEIVE_QUESTIONS'
 export const ADD_QUESTION = 'ADD_QUESTION'
@@ -51,13 +51,14 @@ export function handleAnswerQuestion(question) {
     const { authedUser } = getState()
 
     dispatch(showLoading())
-    console.log('Answer params: ', question)
+
     return saveQuestionAnswer({
       authedUser: authedUser,
       qid: id,
       answer: answer
     })
-      .then(question => dispatch(answerQuestion(question)))
+      .then(() => dispatch(answerQuestion({ authedUser, id, answer })))
+      .then(() => dispatch(addUserAnswer({ authedUser, id, answer })))
       .then(() => dispatch(hideLoading()))
   }
 }
