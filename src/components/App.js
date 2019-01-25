@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import LoadingBar from 'react-redux-loading'
 import { handleInitialData } from '../actions/shared'
@@ -15,6 +15,8 @@ class App extends Component {
     this.props.dispatch(handleInitialData('tylermcginnis'))
   }
   render() {
+    const { authedUser } = this.props
+
     return (
       <Router>
         <Fragment>
@@ -39,6 +41,7 @@ class App extends Component {
 
 function mapStateToProps({ authedUser }) {
   return {
+    authedUser,
     loading: authedUser === null
   }
 }

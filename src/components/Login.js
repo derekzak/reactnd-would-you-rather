@@ -14,14 +14,17 @@ class Login extends Component {
   }
 
   handleChange = event => {
-    const { dispatch } = this.props
-
-    this.setState({ value: event.target.value })
-    dispatch(setAuthedUser(event.target.value.trim()))
+    this.setState({ value: event.target.value.trim() })
   }
 
   handleSubmit = event => {
     event.preventDefault()
+
+    const { dispatch } = this.props
+    const { value } = this.state
+
+    dispatch(setAuthedUser(value))
+    this.props.history.push('/')
   }
 
   render() {
