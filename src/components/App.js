@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { connect } from 'react-redux'
 import LoadingBar from 'react-redux-loading'
 import { handleInitialData } from '../actions/shared'
@@ -15,12 +16,23 @@ class App extends Component {
   }
   render() {
     return (
-      <Fragment>
-        <LoadingBar />
-        <div className='container'>
-          {this.props.loading === true ? null : <Leaderboard />}
-        </div>
-      </Fragment>
+      <Router>
+        <Fragment>
+          <LoadingBar />
+          <div className='container'>
+            <Nav />
+            {this.props.loading === true ? null : (
+              <div>
+                <Route path='/' exact component={Home} />
+                <Route path='/new' component={NewQuestion} />
+                <Route path='/leaderboard' component={Leaderboard} />
+                <Route path='/login' component={Login} />
+                <Route path='/question/:id' component={Question} />
+              </div>
+            )}
+          </div>
+        </Fragment>
+      </Router>
     )
   }
 }

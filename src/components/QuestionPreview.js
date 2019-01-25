@@ -1,12 +1,8 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 class QuestionPreview extends Component {
-  handleSubmit = event => {
-    event.preventDefault()
-
-    // todo: navigate to question page
-  }
   render() {
     const { question, users } = this.props
 
@@ -23,11 +19,11 @@ class QuestionPreview extends Component {
             ...{question.optionOne.text.slice(0, 15)}...
           </span>
         </div>
-        <form onSubmit={this.handleSubmit}>
-          <div className='question-preview-submit'>
+        <div className='question-preview-submit'>
+          <Link id={question.id} to={`/question/${question.id}`}>
             <button>View Poll</button>
-          </div>
-        </form>
+          </Link>
+        </div>
       </div>
     )
   }

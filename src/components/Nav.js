@@ -4,23 +4,15 @@ import { NavLink } from 'react-router-dom'
 export default function Nav() {
   return (
     <nav className='nav'>
-      <ul>
-        <li>
-          <NavLink to='/' exact activeClassName='active'>
-            Home
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to='/new' activeClassName='active'>
-            New Question
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to='/leaderboard' activeClassName='active'>
-            Leader Board
-          </NavLink>
-        </li>
-      </ul>
+      <NavLink to='/' exact activeClassName='active'>
+        Home
+      </NavLink>
+      <NavLink to='/new' activeClassName='active'>
+        New Question
+      </NavLink>
+      <NavLink to='/leaderboard' activeClassName='active'>
+        Leaderboard
+      </NavLink>
     </nav>
   )
 }

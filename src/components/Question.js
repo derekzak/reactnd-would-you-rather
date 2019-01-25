@@ -12,7 +12,7 @@ class Question extends Component {
       }
     )
     this.state = {
-      questionAnswered: answersArray.includes(props.id),
+      questionAnswered: answersArray.includes(props.match.params.id),
       selectedOption: 'optionOne'
     }
   }
@@ -25,7 +25,8 @@ class Question extends Component {
     event.preventDefault()
 
     const { selectedOption } = this.state
-    const { dispatch, id } = this.props
+    const { dispatch } = this.props
+    const { id } = this.props.match.params
 
     dispatch(handleAnswerQuestion({ id: id, answer: selectedOption }))
 
@@ -35,7 +36,8 @@ class Question extends Component {
     }))
   }
   render() {
-    const { id, users, questions } = this.props
+    const { users, questions } = this.props
+    const { id } = this.props.match.params
     const { questionAnswered, selectedOption } = this.state
     const question = questions[id]
 
