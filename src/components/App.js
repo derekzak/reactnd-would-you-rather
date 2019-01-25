@@ -7,6 +7,7 @@ import Home from './Home'
 import Login from './Login'
 import NewQuestion from './NewQuestion'
 import Question from './Question'
+import Leaderboard from './Leaderboard'
 
 class App extends Component {
   componentDidMount() {
@@ -17,9 +18,7 @@ class App extends Component {
       <Fragment>
         <LoadingBar />
         <div className='container'>
-          {this.props.loading === true ? null : (
-            <Question id='loxhs1bqm25b708cmbf3g' />
-          )}
+          {this.props.loading === true ? null : <Leaderboard />}
         </div>
       </Fragment>
     )
