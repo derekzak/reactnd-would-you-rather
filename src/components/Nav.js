@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 export default function Nav() {
   return (
@@ -13,6 +13,7 @@ export default function Nav() {
       <NavLink to='/leaderboard' activeClassName='active'>
         Leaderboard
       </NavLink>
+      <Link to='/login'>Logout</Link>
     </nav>
   )
 }

@@ -7,6 +7,7 @@ class Login extends Component {
     super(props)
 
     this.state = { value: '' }
+    props.dispatch(setAuthedUser(''))
   }
 
   validateForm() {
