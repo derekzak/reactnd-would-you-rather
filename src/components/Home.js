@@ -9,7 +9,7 @@ class Home extends Component {
     this.state = { showAnswered: false }
   }
 
-  toggleShowAnswered = event => {
+  toggleShowAnswered = () => {
     if (this.state.showAnswered) {
       document.getElementById('questionToggleBtn').innerHTML =
         'Show Answered Questions'
@@ -24,12 +24,7 @@ class Home extends Component {
   }
 
   render() {
-    const {
-      users,
-      answeredQuestions,
-      unansweredQuestions,
-      authedUser
-    } = this.props
+    const { answeredQuestions, unansweredQuestions } = this.props
     const { showAnswered } = this.state
 
     return (
@@ -71,14 +66,12 @@ function mapStateToProps({ users, questions, authedUser }) {
     return i
   })
   return {
-    users,
     answeredQuestions: questionsArray.filter(question =>
       answersArray.includes(question.id)
     ),
     unansweredQuestions: questionsArray.filter(
       question => !answersArray.includes(question.id)
-    ),
-    authedUser
+    )
   }
 }
 

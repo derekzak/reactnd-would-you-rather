@@ -12,6 +12,7 @@ class QuestionPreview extends Component {
           className='card-img-top'
           style={{ height: 100, width: 100, display: 'block' }}
           src={process.env.PUBLIC_URL + users[question.author].avatarURL}
+          alt=''
         />
         <div className='card-body'>
           <div className='question-preview-author'>

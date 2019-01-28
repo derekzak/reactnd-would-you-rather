@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 class Leaderboard extends Component {
   render() {
-    const { users, authedUser } = this.props
+    const { users } = this.props
 
     return (
       <div className='leaderboard'>
@@ -16,6 +16,7 @@ class Leaderboard extends Component {
                   className='card-img-top'
                   style={{ height: 100, width: 100, display: 'block' }}
                   src={process.env.PUBLIC_URL + user.avatarURL}
+                  alt=''
                 />
                 <h3>{user.name}</h3>
                 <div className='leaderboard-score'>
@@ -46,7 +47,7 @@ class Leaderboard extends Component {
   }
 }
 
-function mapStateToProps({ users, authedUser }) {
+function mapStateToProps({ users }) {
   var usersArray = Object.keys(users).map(function(userId) {
     return users[userId]
   })
@@ -57,8 +58,7 @@ function mapStateToProps({ users, authedUser }) {
         b.questions.length -
         (Object.keys(a.answers).length + a.questions.length)
       )
-    }),
-    authedUser
+    })
   }
 }
 
