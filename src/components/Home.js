@@ -41,22 +41,22 @@ class Home extends Component {
           </button>
         </div>
         {!showAnswered && (
-          <ul className='unanswered-questions'>
+          <div className='unanswered-questions'>
             {unansweredQuestions.map(question => (
-              <li key={question.id}>
+              <div className='card mb-6' key={question.id}>
                 <QuestionPreview question={question} />
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         )}
         {showAnswered && (
-          <ul className='answered-questions'>
+          <div className='answered-questions'>
             {answeredQuestions.map(question => (
-              <li key={question.id}>
+              <li className='card mb-6' key={question.id}>
                 <QuestionPreview question={question} />
               </li>
             ))}
-          </ul>
+          </div>
         )}
       </div>
     )

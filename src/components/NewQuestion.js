@@ -29,6 +29,8 @@ class NewQuestion extends Component {
       optionOneText: '',
       optionTwoText: ''
     }))
+
+    this.props.history.push('/')
   }
 
   render() {

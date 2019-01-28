@@ -6,31 +6,41 @@ class Leaderboard extends Component {
     const { users, authedUser } = this.props
 
     return (
-      <div className='home'>
+      <div className='leaderboard'>
         <h3>Leaderboard</h3>
-        <ul className='leaderboard-users'>
+        <div className='leaderboard-users'>
           {users.map(user => (
-            <li key={user.id}>
-              <h3>{user.name}</h3>
-              <div className='leaderboard-score'>
-                <div className='leaderboard-score-breakdown'>
-                  <span>
-                    Answered questions: {Object.keys(user.answers).length}
-                  </span>
-                </div>
-                <div className='leaderboard-score-breakdown'>
-                  <span>Created questions: {user.questions.length}</span>
-                </div>
-                <div className='leaderboard-score-total'>
-                  <span>
-                    Score:{' '}
-                    {Object.keys(user.answers).length + user.questions.length}
-                  </span>
+            <div className='card mb-6'>
+              <div className='card mb-6 shadow-sm'>
+                <img
+                  className='card-img-top'
+                  style={{ height: 100, width: 100, display: 'block' }}
+                  src={process.env.PUBLIC_URL + user.avatarURL}
+                />
+                <h3>{user.name}</h3>
+                <div className='leaderboard-score'>
+                  <div className='leaderboard-score-breakdown'>
+                    <span>
+                      Answered questions: {Object.keys(user.answers).length}
+                    </span>
+                  </div>
+                  <div className='leaderboard-score-breakdown'>
+                    <span>Created questions: {user.questions.length}</span>
+                  </div>
+                  <div className='leaderboard-score-total'>
+                    <span>
+                      <b>
+                        Score:{' '}
+                        {Object.keys(user.answers).length +
+                          user.questions.length}
+                      </b>
+                    </span>
+                  </div>
                 </div>
               </div>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
     )
   }

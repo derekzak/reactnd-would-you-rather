@@ -3,17 +3,19 @@ import { Link, NavLink } from 'react-router-dom'
 
 export default function Nav() {
   return (
-    <nav className='nav'>
-      <NavLink to='/' exact activeClassName='active'>
+    <nav className='navbar'>
+      <NavLink to='/' exact className='nav-item' activeClassName='active'>
         Home
       </NavLink>
-      <NavLink to='/new' activeClassName='active'>
+      <NavLink to='/new' className='nav-item' activeClassName='active'>
         New Question
       </NavLink>
-      <NavLink to='/leaderboard' activeClassName='active'>
+      <NavLink to='/leaderboard' className='nav-item' activeClassName='active'>
         Leaderboard
       </NavLink>
-      <Link to='/login'>Logout</Link>
+      <Link className='nav-item' to='/login'>
+        Logout
+      </Link>
     </nav>
   )
 }
