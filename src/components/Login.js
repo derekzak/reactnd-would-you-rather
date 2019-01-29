@@ -7,6 +7,9 @@ class Login extends Component {
     super(props)
 
     this.state = { value: '' }
+    if (!props.authedUser) {
+      alert('Please login before continuing')
+    }
     props.dispatch(setAuthedUser(''))
   }
 
@@ -53,8 +56,9 @@ class Login extends Component {
   }
 }
 
-function mapStateToProps({ users }) {
+function mapStateToProps({ authedUser, users }) {
   return {
+    authedUser,
     users
   }
 }

@@ -14,6 +14,7 @@ import Login from './Login'
 import NewQuestion from './NewQuestion'
 import Question from './Question'
 import Leaderboard from './Leaderboard'
+import PrivateRoute from './PrivateRoute'
 
 const NoMatch = ({ location }) => (
   <div>
@@ -46,16 +47,16 @@ class App extends Component {
             {this.props.loading === true ? null : (
               <div>
                 <Switch>
-                  <Route
+                  <PrivateRoute
                     path='/'
                     exact
                     component={Home}
                     onEnter={this.requireLogin}
                   />
-                  <Route path='/add' component={NewQuestion} />
-                  <Route path='/leaderboard' component={Leaderboard} />
+                  <PrivateRoute path='/add' component={NewQuestion} />
+                  <PrivateRoute path='/leaderboard' component={Leaderboard} />
+                  <PrivateRoute path='/question/:id' component={Question} />
                   <Route path='/login' component={Login} />
-                  <Route path='/question/:id' component={Question} />
                   <Route component={NoMatch} />
                 </Switch>
               </div>
