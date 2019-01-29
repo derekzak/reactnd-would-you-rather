@@ -44,7 +44,7 @@ class App extends Component {
           <LoadingBar />
           <div className='container'>
             <Nav user={authedUser} />
-            {this.props.loading === true ? null : (
+            {this.props.loading ? null : (
               <div>
                 <Switch>
                   <PrivateRoute
