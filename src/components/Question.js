@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router'
 import { handleAnswerQuestion } from '../actions/questions'
 
 class Question extends Component {
@@ -13,6 +14,7 @@ class Question extends Component {
     )
     this.state = {
       questionAnswered: answersArray.includes(props.match.params.id),
+      questionAnswer: answersArray[props.match.params.id],
       selectedOption: 'optionOne'
     }
   }
@@ -30,87 +32,138 @@ class Question extends Component {
 
     dispatch(handleAnswerQuestion({ id: id, answer: selectedOption }))
 
-    this.setState(() => ({
+    this.setState(prevState => ({
       questionAnswered: true,
+      questionAnswer: prevState.selectedOption,
       selectedOption: 'optionOne'
     }))
   }
   render() {
     const { users, questions } = this.props
     const { id } = this.props.match.params
-    const { questionAnswered, selectedOption } = this.state
+    const { questionAnswered, questionAnswer, selectedOption } = this.state
     const question = questions[id]
 
-    return (
-      <div className='question'>
-        <div className='question-author'>
-          <span className='center'>
-            Asked by: {users[question.author].name}
-          </span>
+    if (typeof question === 'undefined') {
+      return (
+        <div>
+          <h3>
+            404 - Question with ID: <code>{id}</code> doesn't exist
+          </h3>
         </div>
-        {!questionAnswered && (
-          <div className='question-content'>
-            <div className='question-wyr'>
-              <h3>Would you Rather...</h3>
+      )
+    }
+
+    return (
+      <div className='card mb-6 shadow-sm'>
+        <img
+          className='card-img-top'
+          style={{ height: 100, width: 100, display: 'block' }}
+          src={process.env.PUBLIC_URL + users[question.author].avatarURL}
+          alt=''
+        />
+        <div className='card-body'>
+          <div className='question-author'>
+            <span className='center'>
+              Asked by: {users[question.author].name}
+            </span>
+          </div>
+          {!questionAnswered && (
+            <div className='question-content'>
+              <div className='question-wyr'>
+                <h3>Would you Rather...</h3>
+              </div>
+              <form onSubmit={this.handleSubmit}>
+                <div className='question-radio'>
+                  <label>
+                    <input
+                      type='radio'
+                      value='optionOne'
+                      checked={selectedOption === 'optionOne'}
+                      onChange={this.handleChange}
+                    />
+                    {question.optionOne.text}
+                  </label>
+                </div>
+                <div className='question-radio'>
+                  <label>
+                    <input
+                      type='radio'
+                      value='optionTwo'
+                      checked={selectedOption === 'optionTwo'}
+                      onChange={this.handleChange}
+                    />
+                    {question.optionTwo.text}
+                  </label>
+                </div>
+                <div className='question-submit'>
+                  <button>Submit</button>
+                </div>
+              </form>
             </div>
-            <form onSubmit={this.handleSubmit}>
-              <div className='question-radio'>
-                <label>
-                  <input
-                    type='radio'
-                    value='optionOne'
-                    checked={selectedOption === 'optionOne'}
-                    onChange={this.handleChange}
-                  />
+          )}
+          {questionAnswered && (
+            <div className='question-content'>
+              <div className='question-results'>
+                <h3>Results:</h3>
+              </div>
+              <div className='question-answer'>
+                <span>
                   {question.optionOne.text}
-                </label>
+                  {questionAnswer === 'optionOne' && (
+                    <b>{' \u2713 Your Selection'}</b>
+                  )}
+                </span>
+                <div className='question-votes'>
+                  <span>
+                    {question.optionOne.votes.length} out of{' '}
+                    {question.optionOne.votes.length +
+                      question.optionTwo.votes.length}{' '}
+                    votes
+                  </span>
+                </div>
+                <div className='question-percentage'>
+                  <span>
+                    {(
+                      (question.optionOne.votes.length /
+                        (question.optionOne.votes.length +
+                          question.optionTwo.votes.length)) *
+                      100
+                    ).toFixed(2)}
+                    % of votes
+                  </span>
+                </div>
               </div>
-              <div className='question-radio'>
-                <label>
-                  <input
-                    type='radio'
-                    value='optionTwo'
-                    checked={selectedOption === 'optionTwo'}
-                    onChange={this.handleChange}
-                  />
+              <div className='question-answer'>
+                <span>
                   {question.optionTwo.text}
-                </label>
-              </div>
-              <div className='question-submit'>
-                <button>Submit</button>
-              </div>
-            </form>
-          </div>
-        )}
-        {questionAnswered && (
-          <div className='question-content'>
-            <div className='question-results'>
-              <h3>Results:</h3>
-            </div>
-            <div className='question-answer'>
-              <span>{question.optionOne.text}</span>
-              <div className='question-votes'>
-                <span>
-                  {question.optionOne.votes.length} out of{' '}
-                  {question.optionOne.votes.length +
-                    question.optionTwo.votes.length}{' '}
-                  votes
+                  {questionAnswer === 'optionTwo' && (
+                    <b>{' \u2713 Your Selection'}</b>
+                  )}
                 </span>
+                <div className='question-votes'>
+                  <span>
+                    {question.optionTwo.votes.length} out of{' '}
+                    {question.optionOne.votes.length +
+                      question.optionTwo.votes.length}{' '}
+                    votes
+                  </span>
+                </div>
+                <div className='question-percentage'>
+                  <span>
+                    {(
+                      (question.optionTwo.votes.length /
+                        (question.optionOne.votes.length +
+                          question.optionTwo.votes.length)) *
+                      100
+                    ).toFixed(2)}
+                    % of votes
+                  </span>
+                </div>
               </div>
             </div>
-            <div className='question-answer'>
-              <span>{question.optionTwo.text}</span>
-              <div className='question-votes'>
-                <span>
-                  {question.optionTwo.votes.length} out of{' '}
-                  {question.optionOne.votes.length +
-                    question.optionTwo.votes.length}{' '}
-                  votes
-                </span>
-              </div>
-            </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     )
   }

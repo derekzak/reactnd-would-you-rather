@@ -66,12 +66,16 @@ function mapStateToProps({ users, questions, authedUser }) {
     return i
   })
   return {
-    answeredQuestions: questionsArray.filter(question =>
-      answersArray.includes(question.id)
-    ),
-    unansweredQuestions: questionsArray.filter(
-      question => !answersArray.includes(question.id)
-    )
+    answeredQuestions: questionsArray
+      .filter(question => answersArray.includes(question.id))
+      .sort(function(a, b) {
+        return b.timestamp - a.timestamp
+      }),
+    unansweredQuestions: questionsArray
+      .filter(question => !answersArray.includes(question.id))
+      .sort(function(a, b) {
+        return b.timestamp - a.timestamp
+      })
   }
 }
 

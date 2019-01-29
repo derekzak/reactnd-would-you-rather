@@ -8,6 +8,7 @@ This project allows users to answer and create would you rather questions.  Ther
 
 * clone the Project - `git@github.com:derekzak/reactnd-would-you-rather.git`
 * install the dependencies - `npm install`
+* start the project - `npm start`
 
 ## Contributing
 
