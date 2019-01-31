@@ -13,7 +13,8 @@ class Question extends Component {
     )
     this.state = {
       questionAnswered: answersArray.includes(props.match.params.id),
-      questionAnswer: answersArray[props.match.params.id],
+      questionAnswer:
+        props.users[props.authedUser].answers[props.match.params.id],
       selectedOption: 'optionOne'
     }
   }
